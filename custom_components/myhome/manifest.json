@@ -1,10 +1,10 @@
 {
-  "domain": "myhome",
-  "name": "MyHOME",
-  "version": "0.8.5",
+  "domain": "myhome_timed",
+  "name": "MyHOME Timed",
+  "version": "0..0.1",
   "config_flow": true,
-  "documentation": "https://github.com/anotherjulien/MyHOME",
-  "issue_tracker": "https://github.com/anotherjulien/MyHOME/issues",
+  "documentation": "https://github.com/anotherjulien/tmp_atttempt_3605",
+  "issue_tracker": "https://github.com/anotherjulien/tmp_atttempt_3605/issues",
   "requirements": [
     "OWNd==0.7.39"
   ],
@@ -66,6 +66,7 @@
     }
   ],
   "codeowners": [
-    "@anotherjulien"
+    "@anotherjulien",
+    "@alessandroferra"
   ]
 }

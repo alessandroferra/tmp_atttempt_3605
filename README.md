@@ -1,4 +1,4 @@
-# MyHOME
+# MyHOME Timed
 MyHOME integration for Home-Assistant
 
 ## Installation
