@@ -3,6 +3,8 @@ import logging
 
 import voluptuous as vol
 
+from datetime import timedelta
+
 from homeassistant.components.cover import (
     ATTR_CURRENT_POSITION,
     ATTR_POSITION,
@@ -55,11 +57,6 @@ from .const import (
 
 from .myhome_device import MyHOMEEntity
 from .gateway import MyHOMEGatewayHandler
-
-BASE_DEVICE_SCHEMA = vol.Schema(
-    {
-}
-)
 
 MYHOME_SCHEMA = vol.Schema(
     {
