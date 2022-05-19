@@ -1,7 +1,7 @@
 {
   "domain": "myhome_timed",
   "name": "MyHOME Timed",
-  "version": "0.0.3",
+  "version": "0.0.3-0.0.1",
   "config_flow": true,
   "documentation": "https://github.com/anotherjulien/tmp_atttempt_3605",
   "issue_tracker": "https://github.com/anotherjulien/tmp_atttempt_3605/issues",
