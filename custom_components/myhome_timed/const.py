@@ -38,7 +38,6 @@ CONF_SHORT_RELEASE = "pushbutton_short_release"
 CONF_LONG_PRESS = "pushbutton_long_press"
 CONF_LONG_RELEASE = "pushbutton_long_release"
 
-# Timed cover constants
 CONF_TIMED = 'timed'
 DEFAULT_TIMED = False
 DEFAULT_ADVANCED = False
