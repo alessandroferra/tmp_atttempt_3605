@@ -284,66 +284,56 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
             self.tc.stop()
             self.stop_auto_updater()
 
-    if timed:
-        @property
-        def unconfirmed_state(self):
-            """Return the assume state as a string to persist through restarts ."""
-            return str(self._assume_uncertain_position)
-
-        @property
-        def name(self):
-            """Return the name of the cover."""
-            return self._name
-
-        @property
-        def unique_id(self):
-            """Return the unique id."""
-            return "cover_rf_timebased_uuid_" + self._unique_id
-
-        @property
-        def device_class(self):
-            """Return the device class of the cover."""
-            return self._device_class
-
-        @property
-        def extra_state_attributes(self):
-            """Return the device state attributes."""
-            attr = {}
-            if self._travel_time_down is not None:
-                attr[CONF_TRAVELLING_TIME_DOWN] = self._travel_time_down
-            if self._travel_time_up is not None:
-                attr[CONF_TRAVELLING_TIME_UP] = self._travel_time_up 
-            attr[ATTR_UNCONFIRMED_STATE] = str(self._assume_uncertain_position)
-            return attr
-
-        @property
-        def current_cover_position(self):
-            """Return the current position of the cover."""
-            return self.tc.current_position()
-
-        @property
-        def is_opening(self):
-            """Return if the cover is opening or not."""
-            from xknx.devices import TravelStatus
-            return self.tc.is_traveling() and \
-                self.tc.travel_direction == TravelStatus.DIRECTION_UP
-
-        @property
-        def is_closing(self):
-            """Return if the cover is closing or not."""
-            from xknx.devices import TravelStatus
-            return self.tc.is_traveling() and \
-                self.tc.travel_direction == TravelStatus.DIRECTION_DOWN
-
-        @property
-        def is_closed(self):
-            """Return if the cover is closed."""
-            return self.tc.is_closed()
-
-        @property
-        def assumed_state(self):
-            """Return True unless we have set position with confidence through send_know_position service."""
-            return self._assume_uncertain_position
+    @property
+    def unconfirmed_state(self):
+        """Return the assume state as a string to persist through restarts ."""
+        return str(self._assume_uncertain_position)
+    @property
+    def name(self):
+        """Return the name of the cover."""
+        return self._name
+    @property
+    def unique_id(self):
+        """Return the unique id."""
+        return "cover_rf_timebased_uuid_" + self._unique_id
+    @property
+    def device_class(self):
+        """Return the device class of the cover."""
+        return self._device_class
+    @property
+    def extra_state_attributes(self):
+        """Return the device state attributes."""
+        attr = {}
+        if self._travel_time_down is not None:
+            attr[CONF_TRAVELLING_TIME_DOWN] = self._travel_time_down
+        if self._travel_time_up is not None:
+            attr[CONF_TRAVELLING_TIME_UP] = self._travel_time_up 
+        attr[ATTR_UNCONFIRMED_STATE] = str(self._assume_uncertain_position)
+        return attr
+    @property
+    def current_cover_position(self):
+        """Return the current position of the cover."""
+        return self.tc.current_position()
+    @property
+    def is_opening(self):
+        """Return if the cover is opening or not."""
+        from xknx.devices import TravelStatus
+        return self.tc.is_traveling() and \
+            self.tc.travel_direction == TravelStatus.DIRECTION_UP
+    @property
+    def is_closing(self):
+        """Return if the cover is closing or not."""
+        from xknx.devices import TravelStatus
+        return self.tc.is_traveling() and \
+            self.tc.travel_direction == TravelStatus.DIRECTION_DOWN
+    @property
+    def is_closed(self):
+        """Return if the cover is closed."""
+        return self.tc.is_closed()
+    @property
+    def assumed_state(self):
+        """Return True unless we have set position with confidence through send_know_position service."""
+        return self._assume_uncertain_position
 
     async def async_set_cover_position(self, **kwargs):
         """Move the cover to a specific position."""
