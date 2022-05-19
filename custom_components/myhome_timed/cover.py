@@ -31,7 +31,7 @@ from homeassistant.helpers.restore_state import RestoreEntity
 
 _LOGGER = logging.getLogger(__name__)
 
-from OWN.message import (
+from OWNd.message import (
     OWNAutomationEvent,
     OWNAutomationCommand,
 )
