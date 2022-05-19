@@ -295,10 +295,6 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
         """Return the assume state as a string to persist through restarts ."""
         return str(self._assume_uncertain_position)
     @property
-    def name(self):
-        """Return the name of the cover."""
-        return self.name
-    @property
     def extra_state_attributes(self):
         """Return the device state attributes."""
         attr = {}
