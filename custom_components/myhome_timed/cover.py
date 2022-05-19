@@ -5,6 +5,8 @@ import voluptuous as vol
 
 from datetime import timedelta
 
+from homeassistant.core import callback
+from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.components.cover import (
     ATTR_CURRENT_POSITION,
     ATTR_POSITION,
