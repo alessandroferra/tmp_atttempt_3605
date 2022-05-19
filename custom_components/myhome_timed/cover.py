@@ -1,7 +1,7 @@
 """Support for MYHome covers, with timed option"""
 import logging
 
-import voluptuous as voluptuous
+import voluptuous as vol
 
 from homeassistant.components.cover import (
     ATTR_CURRENT_POSITION,
