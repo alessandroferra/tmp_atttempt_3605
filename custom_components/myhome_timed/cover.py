@@ -152,6 +152,8 @@ async def async_setup_platform(
                 CONF_DEVICE_MODEL: model,
             }
 
+            platform = entity_platform.current_platform.get()
+
             platform.async_register_entity_service(
                 SERVICE_SET_KNOWN_POSITION, POSITION_SCHEMA, "set_known_position"
             )
@@ -296,10 +298,6 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
     def name(self):
         """Return the name of the cover."""
         return self._name
-    @property
-    def unique_id(self):
-        """Return the unique id."""
-        return "cover_rf_timebased_uuid_" + self._unique_id
     @property
     def device_class(self):
         """Return the device class of the cover."""
