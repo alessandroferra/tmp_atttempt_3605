@@ -263,7 +263,7 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
         """ Only cover position and confidence in that matters."""
         """ The rest is calculated from this attribute.        """
         old_state = await self.async_get_last_state()
-        _LOGGER.debug(self._name + ': ' + 'async_added_to_hass :: oldState %s', old_state)
+        _LOGGER.debug(self.name + ': ' + 'async_added_to_hass :: oldState %s', old_state)
         if (old_state is not None and self.tc is not None and old_state.attributes.get(ATTR_CURRENT_POSITION) is not None):
             self.tc.set_position(int(old_state.attributes.get(ATTR_CURRENT_POSITION)))
         if (old_state is not None and old_state.attributes.get(ATTR_UNCONFIRMED_STATE) is not None and not self._always_confident):
@@ -286,7 +286,7 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
         """Stop the cover."""
         await self._gateway_handler.send(OWNAutomationCommand.stop_shutter(self._where))
         if self.tc.is_traveling():
-            _LOGGER.debug(self._name + ': ' + '_handle_stop :: button stops cover')
+            _LOGGER.debug(self.name + ': ' + '_handle_stop :: button stops cover')
             self.tc.stop()
             self.stop_auto_updater()
 
@@ -297,11 +297,7 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
     @property
     def name(self):
         """Return the name of the cover."""
-        return self._name
-    @property
-    def device_class(self):
-        """Return the device class of the cover."""
-        return self._device_class
+        return self.name
     @property
     def extra_state_attributes(self):
         """Return the device state attributes."""
@@ -341,13 +337,13 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
         """Move the cover to a specific position."""
         if ATTR_POSITION in kwargs:
             self._target_position = kwargs[ATTR_POSITION]
-            _LOGGER.debug(self._name + ': ' + 'async_set_cover_position: %d', self._target_position)
+            _LOGGER.debug(self.name + ': ' + 'async_set_cover_position: %d', self._target_position)
             await self.set_position(self._target_position)
     
     async def async_close_cover(self, **kwargs):  # pylint: disable=unused-argument
         """Close cover."""
         if self.timed:
-            _LOGGER.debug(self._name + ': ' + 'async_close_cover')
+            _LOGGER.debug(self.name + ': ' + 'async_close_cover')
             self.tc.start_travel_down()
             self._target_position = 0
 
@@ -360,7 +356,7 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
         """Open the cover."""
         if self.timed:
             """Turn the device open."""
-            _LOGGER.debug(self._name + ': ' + 'async_open_cover')
+            _LOGGER.debug(self.name + ': ' + 'async_open_cover')
             self.tc.start_travel_up()
             self._target_position = 100
 
@@ -371,23 +367,23 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
 
     async def async_stop_cover(self, **kwargs):  # pylint: disable=unused-argument
         """Stop the cover."""
-        _LOGGER.debug(self._name + ': ' + 'async_stop_cover')
+        _LOGGER.debug(self.name + ': ' + 'async_stop_cover')
         if self.timed: self._handle_stop()
         await self._gateway_handler.send(OWNAutomationCommand.stop_shutter(self._where))
 
     @callback
     def auto_updater_hook(self, now):
         """Call for the autoupdater."""
-        _LOGGER.debug(self._name + ': ' + 'auto_updater_hook')
+        _LOGGER.debug(self.name + ': ' + 'auto_updater_hook')
         self.async_schedule_update_ha_state()
         if self.position_reached():
-            _LOGGER.debug(self._name + ': ' + 'auto_updater_hook :: position_reached')
+            _LOGGER.debug(self.name + ': ' + 'auto_updater_hook :: position_reached')
             self.stop_auto_updater()
         self.hass.async_create_task(self.auto_stop_if_necessary())
 
     def stop_auto_updater(self):
         """Stop the autoupdater."""
-        _LOGGER.debug(self._name + ': ' + 'stop_auto_updater')
+        _LOGGER.debug(self.name + ': ' + 'stop_auto_updater')
         if self._unsubscribe_auto_updater is not None:
             self._unsubscribe_auto_updater()
             self._unsubscribe_auto_updater = None
@@ -430,11 +426,11 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
         if self.position_reached() and not self._processing_known_position:
             self.tc.stop()
             if (current_position > 0) and (current_position < 100):
-                _LOGGER.debug(self._name + ': ' + 'auto_stop_if_necessary :: current_position between 1 and 99 :: calling stop command')
+                _LOGGER.debug(self.name + ': ' + 'auto_stop_if_necessary :: current_position between 1 and 99 :: calling stop command')
                 await self._async_handle_command(SERVICE_STOP_COVER)
             else:
                 if self._send_stop_at_ends:
-                    _LOGGER.debug(self._name + ': ' + 'auto_stop_if_necessary :: send_stop_at_ends :: calling stop command')
+                    _LOGGER.debug(self.name + ': ' + 'auto_stop_if_necessary :: send_stop_at_ends :: calling stop command')
                     await self._async_handle_command(SERVICE_STOP_COVER)
 
     async def _async_handle_command(self, command, *args):
@@ -453,7 +449,7 @@ class MyHOMECover(MyHOMEEntity, CoverEntity):
             cmd = "STOP"
             self._state = True
             
-        _LOGGER.debug(self._name + ': ' + '_async_handle_command :: %s', cmd)
+        _LOGGER.debug(self.name + ': ' + '_async_handle_command :: %s', cmd)
 
         # Update state of entity
         self.async_write_ha_state()
