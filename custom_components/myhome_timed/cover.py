@@ -1,4 +1,4 @@
-"""Support for MYHome covers, with timed option"""
+"""Support for MYHome covers, with timed option."""
 import logging
 
 import voluptuous as vol
