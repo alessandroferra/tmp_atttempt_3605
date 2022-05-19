@@ -243,6 +243,7 @@ class MyHOMECover(MyHOMEEntity, CoverEntity, RestoreEntity):
             self._assume_uncertain_position = True
             self._target_position = 0
             self._processing_known_position = False
+            self._unsubscribe_auto_updater = None
             self.tc = TravelCalculator(self._travel_time_down, self._travel_time_up)
 
         self._gateway_handler = gateway
@@ -294,6 +295,18 @@ class MyHOMECover(MyHOMEEntity, CoverEntity, RestoreEntity):
     def unconfirmed_state(self):
         """Return the assume state as a string to persist through restarts ."""
         return str(self._assume_uncertain_position)
+    @property
+    def name(self):
+        """Return the name of the cover."""
+        return self.name
+    @property
+    def unique_id(self):
+        """Return the unique id."""
+        return "cover_rf_timebased_uuid_" + self._device_id
+    @property
+    def device_class(self):
+        """Return the device class of the cover."""
+        return self.device_class
     @property
     def extra_state_attributes(self):
         """Return the device state attributes."""
